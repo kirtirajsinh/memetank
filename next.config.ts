@@ -1,7 +1,16 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+// webpack.config.js
+module.exports = {
+  //...
+  externals: {
+    ['@solana/web3.js']: 'commonjs @solana/web3.js',
+  },
 };
 
-export default nextConfig;
+// next.config.js
+module.exports = {
+  webpack: (config: { externals: { [x: string]: string; }; }) => {
+    // ...
+    config.externals['@solana/web3.js'] = 'commonjs @solana/web3.js';
+    return config;
+  },
+};
